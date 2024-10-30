@@ -9,5 +9,5 @@ load_dotenv()
 KEY = os.getenv("STEAM_API_KEY")
 steam = Steam(KEY)
 
-response = steam.users.search_user("the12thchairman")
+response = steam.users.search_user("mmohaupt")
 print(response)
