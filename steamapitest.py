@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from dotenv import load_dotenv
 from steam_web_api import Steam
 
@@ -10,4 +11,5 @@ KEY = os.getenv("STEAM_API_KEY")
 steam = Steam(KEY)
 
 response = steam.users.search_user("mmohaupt")
-print(response)
+df = pd.DataFrame.from_dict(response)
+print(df)
