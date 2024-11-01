@@ -12,8 +12,8 @@ steam = Steam(KEY)
 
 # Steam IDs start with 765611, so this is the starting part of each ID.
 starting = 765611
-#lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
-lowerbound = 7960288914
+lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
+#lowerbound = 7960288914
 upperbound = 99000000000  # High bound for Steam IDs (for now)
 
 # Open the output files once for efficient writing
