@@ -15,7 +15,7 @@ starting = 765611
 #lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
 #lowerbound = 98284996299 #mmohaupt id, just for testing
 upperbound = 99000000000  # High bound for Steam IDs (for now)
-lowerbound = 97960298866 #matthew mohaupt 11/2/24 5:50pm
+#lowerbound = 97960298866 # last id check by matthew mohaupt 11/2/24 5:50pm
 
 # Open the output files once for efficient writing
 with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_file, open("normie.txt", "a") as normie_file:
