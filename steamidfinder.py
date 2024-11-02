@@ -12,12 +12,12 @@ steam = Steam(KEY)
 
 # Steam IDs start with 765611, so this is the starting part of each ID.
 starting = 765611
-#lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
-#lowerbound = 7960288914  # Last value checked before ran out of requests by matthew 11/1/24 6:43pm
+lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
+#lowerbound = 98284996299 #mmohaupt id, just for testing
 upperbound = 99000000000  # High bound for Steam IDs (for now)
 
 # Open the output files once for efficient writing
-with open("gamer.txt", "w") as gamer_file, open("casual.txt", "w") as casual_file, open("normie.txt", "w") as normie_file:
+with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_file, open("normie.txt", "a") as normie_file:
     
     # Loop through the range of potential Steam IDs
     for index in range(upperbound - lowerbound):
@@ -28,15 +28,22 @@ with open("gamer.txt", "w") as gamer_file, open("casual.txt", "w") as casual_fil
             # Retrieve the number of owned games for the ID
             gamerid = steam.users.get_owned_games(tryid)
             gamerdf = pd.DataFrame.from_dict(gamerid)
-            gamesowned = gamerdf['game_count'][0]
             
             # Check the game count and write to the appropriate file
-            if gamesowned is not None:
+            if(not gamerdf.empty):
+                gamesowned = gamerdf['game_count'][0]
+                print(f"{tryid} is definetly absolutly positively a real ID ")
                 if gamesowned > 50:
                     gamer_file.write(f"{tryid}\n")
                 elif gamesowned > 25:
                     casual_file.write(f"{tryid}\n")
                 elif gamesowned > 0:
                     normie_file.write(f"{tryid}\n")
+            else:
+                print(f"{tryid} empty dataframe")
         except Exception as e:
+            # Check if it's a "429 Too Many Requests" error
+            if "429" in str(e):
+                print(f"429 Too Many Requests error at index {index}. Last tested ID: {tryid}")
+                break
             print(f"{tryid} is not a real ID: {e}")
