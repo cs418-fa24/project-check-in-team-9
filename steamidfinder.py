@@ -16,6 +16,8 @@ starting = 765611
 #lowerbound = 98284996299 #mmohaupt id, just for testing
 upperbound = 99000000000  # High bound for Steam IDs (for now)
 #lowerbound = 97960298866 # last id check by matthew mohaupt 11/2/24 5:50pm
+lowerbound = 97960321657 #last id check by matthew mohaupt 11/2/24 idk when maybe at around 7pm
+
 
 # Open the output files once for efficient writing
 with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_file, open("normie.txt", "a") as normie_file:
@@ -33,7 +35,7 @@ with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_fil
             # Check the game count and write to the appropriate file
             if(not gamerdf.empty):
                 gamesowned = gamerdf['game_count'][0]
-                print(f"{tryid} is definetly absolutly positively a real ID ")
+                print(f"{tryid} is definetly absolutly positively a real ID with number of games = {gamesowned}")
                 if gamesowned > 50:
                     gamer_file.write(f"{tryid}\n")
                 elif gamesowned > 25:

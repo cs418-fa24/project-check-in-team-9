@@ -13,9 +13,8 @@ steam = Steam(KEY)
 response = steam.users.search_user("mmohaupt")
 medf = pd.DataFrame.from_dict(response)
 #76561198284996299     mmohaupt steamid
-#76561197960288018     empty dataframe steamid
 #76561197960298195     not real steam id
-gamer = steam.users.get_owned_games(76561197960288018)
+gamer = steam.users.get_owned_games(<PUT STEAMID WANT TO CHECK IN HERE>)
 gamerdf = pd.DataFrame.from_dict(gamer)
 # print(medf)
 if(not gamerdf.empty):
