@@ -14,13 +14,14 @@ steam = Steam(KEY)
 starting = 765611
 #lowerbound = 97960287930  # Gabe Newell's ID, as low as the ID can go
 #lowerbound = 98284996299 #mmohaupt id, just for testing
-upperbound = 99000000000  # High bound for Steam IDs (for now)
+#upperbound = 99000000000  # High bound for Steam IDs (for now)
+upperbound = 97960313167 # because i messed up in my data collection
 #lowerbound = 97960298866 # last id check by matthew mohaupt 11/2/24 5:50pm
-lowerbound = 97960321657 #last id check by matthew mohaupt 11/2/24 idk when maybe at around 7pm
-
+#lowerbound = 97960321657 #last id check by matthew mohaupt 11/2/24 idk when maybe at around 7pm
+lowerbound = 97960296149 #last id check by matthew mohaupt 11/3/24 12:55am
 
 # Open the output files once for efficient writing
-with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_file, open("normie.txt", "a") as normie_file:
+with open("gamer.txt", "w") as gamer_file, open("casual.txt", "w") as casual_file, open("normie.txt", "w") as normie_file:
     
     # Loop through the range of potential Steam IDs
     for index in range(upperbound - lowerbound):
@@ -31,10 +32,9 @@ with open("gamer.txt", "a") as gamer_file, open("casual.txt", "a") as casual_fil
             # Retrieve the number of owned games for the ID
             gamerid = steam.users.get_owned_games(tryid)
             gamerdf = pd.DataFrame.from_dict(gamerid)
-            
+            gamesowned = gamerdf['game_count'][0]
             # Check the game count and write to the appropriate file
-            if(not gamerdf.empty):
-                gamesowned = gamerdf['game_count'][0]
+            if(gamesowned > 0):
                 print(f"{tryid} is definetly absolutly positively a real ID with number of games = {gamesowned}")
                 if gamesowned > 50:
                     gamer_file.write(f"{tryid}\n")
