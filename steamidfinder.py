@@ -20,7 +20,8 @@ upperbound = 97960313167 # because i messed up in my data collection
 #lowerbound = 97960321657 #last id check by matthew mohaupt 11/2/24 idk when maybe at around 7pm
 #lowerbound = 97960296149 #last id check by matthew mohaupt 11/3/24 12:55am
 #lowerbound = 97960301151 #last id check by matthew mohaupt 11/3/24 4:41pm
-lowerbound = 97960309675 #last id check by matthew mohaupt 11/3/24 8:59pm
+#lowerbound = 97960309675 #last id check by matthew mohaupt 11/3/24 8:59pm
+lowerbound = 97960311578 #last id check by matthew mohaupt 11/4/24 3:20pm
 
 # Open the output files once for efficient writing
 with open("gamer.txt", "w") as gamer_file, open("casual.txt", "w") as casual_file, open("normie.txt", "w") as normie_file:
