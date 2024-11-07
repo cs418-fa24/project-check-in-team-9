@@ -11,21 +11,25 @@ KEY = os.getenv("STEAM_API_KEY")
 steam = Steam(KEY)
 
 # Search for the user and print the response structure
-response = steam.users.search_user("mmohaupt")
-print(response) 
+# response = steam.users.search_user("mmohaupt")
+# print(response) 
 
-medf = pd.DataFrame.from_dict(response)
+# medf = pd.DataFrame.from_dict(response)
 
-print(medf.columns)
+# print(medf.columns)
 
-if 'steamid' in medf.columns:
-    steamid = medf['steamid'][0]
-    gamer = steam.users.get_owned_games(steamid)
-    gamerdf = pd.DataFrame.from_dict(gamer)
+# if 'steamid' in medf.columns:
+#     steamid = medf['steamid'][0]
+#     gamer = steam.users.get_owned_games(steamid)
+#     gamerdf = pd.DataFrame.from_dict(gamer)
 
-    if not gamerdf.empty:
-        print(gamerdf['game_count'][0])
-    else:
-        print("No games found.")
-else:
-    print("steamid not found in response.")
+#     if not gamerdf.empty:
+#         print(gamerdf['game_count'][0])
+#     else:
+#         print("No games found.")
+# else:
+#     print("steamid not found in response.")
+
+gamer = steam.users.get_owned_games(76561197960313178)
+gamerdf = pd.DataFrame.from_dict(gamer)
+print(gamerdf['game_count'][0])
