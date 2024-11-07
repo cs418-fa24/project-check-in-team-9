@@ -21,41 +21,44 @@ for id in ids:
         response = steam.users.get_owned_games(id)
         if 'games' in response and response['games']:
             games_df = pd.DataFrame(response['games'])
-            
             game_count = games_df.shape[0]
             total_hours_played = games_df['playtime_forever'].sum() / 60  
             game_names = games_df['name'].tolist() if 'name' in games_df.columns else []
-            
+            # had to add a check since some players have not played within the 2 week span
+            if 'playtime_2weeks' in games_df.columns:
+                games_df['playtime_2weeks'] = games_df['playtime_2weeks'].sum() / 60  
+            else: 
+                games_df['playtime_2weeks'] = 0  # if no 'playtime_2weeks'
+
             games_df['steam_id'] = id
             games_df['game_count'] = game_count
-            games_df['total_hours_played'] = total_hours_played
+            games_df['total_hours_account'] = round(total_hours_played, 2)
             games_df['game_names'] = [game_names] * game_count  
-            games_df['playtime_hours'] = games_df['playtime_forever'] / 60  
             
-            data.append(games_df[['steam_id', 'game_count', 'total_hours_played', 'game_names', 'name', 'playtime_forever', 'playtime_hours']])
+            data.append(games_df[['steam_id', 'game_count', 'total_hours_account', 'game_names', 'name','playtime_2weeks']])
+            # print(games_df) 
         else:
-
             data.append(pd.DataFrame([{
             'steam_id': id,
             'game_count': 0,
-            'total_hours_played': 0.0,
+            'total_hours_account': 0.0,
             'game_names': [],
             'name': None,
             'playtime_forever': 0,
-            'playtime_hours': 0.0
+            'playtime_2weeks': 0.0
         }]))
             print(f"No games found for Steam ID {id}")
     except Exception as e:
         print(f"Error processing Steam ID {id}: {e}")
 
 res = pd.concat(data, ignore_index=True)
-res.rename(columns={'name': 'most_played_game'}, inplace=True)
+res.rename(columns={'name': 'game_name'}, inplace=True)
 res.to_csv("steam_user_games_data_normies.csv", index=False)
 
-most_played_games = res.groupby('most_played_game')['playtime_hours'].sum().nlargest(10)
+game_name = res.groupby('game_name')['playtime_2weeks'].sum().nlargest(10)
 # Top 10
 plt.figure(figsize=(12, 8))
-sns.barplot(x=most_played_games.values, y=most_played_games.index, palette="viridis")
+sns.barplot(x=game_name.values, y=game_name.index, palette="viridis")
 plt.title("Top 10 Most Played Games by Total Hours (Normie Gamers)")
 plt.xlabel("Total Hours Played")
 plt.ylabel("Game Title")
