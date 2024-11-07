@@ -11,7 +11,7 @@ KEY = os.getenv("STEAM_API_KEY")
 steam = Steam(KEY)
 
 
-with open("normies_random.txt", "r") as f:
+with open("casuals_random.txt", "r") as f:
     steam_ids = [line.strip() for line in f if line.strip()]
 
 
