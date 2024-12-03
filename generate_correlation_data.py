@@ -4,7 +4,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 
-API_KEY = "9E7436D96FCEA48BE4B058AB9FDFB738"
+import os
+from dotenv import load_dotenv
+
+#dont hard code api keys, bad practice
+load_dotenv()
+API_KEY = os.getenv("STEAM_API_KEY")
 
 # Function to fetch owned games
 def get_owned_games(steam_id):
