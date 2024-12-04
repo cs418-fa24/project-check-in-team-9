@@ -30,6 +30,6 @@ steam = Steam(KEY)
 # else:
 #     print("steamid not found in response.")
 
-gamer = steam.users.get_owned_games(76561197960310532)
+gamer = steam.users.get_owned_games(76561197960288464)
 gamerdf = pd.DataFrame.from_dict(gamer)
 print(gamerdf['game_count'][0])
